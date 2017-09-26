@@ -54,9 +54,6 @@ class TextLoader extends AsyncTask<String,Void,String>{
             e.printStackTrace();
         }
 
-        finally {
-            urlConnection.disconnect();
-        }
         return result;
 
     }

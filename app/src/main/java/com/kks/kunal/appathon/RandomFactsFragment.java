@@ -23,6 +23,7 @@ public class RandomFactsFragment extends Fragment implements AdapterView.OnItemS
     public String[] arraySpinner;
     TextView fetchedText;
     String url="http://numbersapi.com/random/";
+    String finalUrl="";
 
     TextLoader.TextLoaderListener listener;
 
@@ -32,9 +33,9 @@ public class RandomFactsFragment extends Fragment implements AdapterView.OnItemS
 
         listener = this;
 
-        this.arraySpinner = new String[] {"<Select>","trivia","math", "Date", "Year"};
-        Spinner s = inflatedView.findViewById(R.id.spinner);
-        fetchedText=inflatedView.findViewById(R.id.fetched_text);
+        this.arraySpinner = new String[] {"<Select>","trivia","math", "date", "year"};
+        Spinner s = inflatedView.findViewById(R.id.spinner_random);
+        fetchedText=inflatedView.findViewById(R.id.fetched_text_random);
 
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(getActivity().getApplicationContext(), android.R.layout.simple_spinner_item, arraySpinner);
         s.setAdapter(adapter);
@@ -48,21 +49,22 @@ public class RandomFactsFragment extends Fragment implements AdapterView.OnItemS
     public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
 
         if(i==1){
-            url=url+adapterView.getItemAtPosition(i).toString();
+            finalUrl=url+adapterView.getItemAtPosition(i).toString();
         }else if(i==2){
-            url=url+adapterView.getItemAtPosition(i).toString();
+            finalUrl=url+adapterView.getItemAtPosition(i).toString();
         }else if(i==3){
-            url=url+adapterView.getItemAtPosition(i).toString();
+            finalUrl=url+adapterView.getItemAtPosition(i).toString();
         }else if(i==4){
-            url=url+adapterView.getItemAtPosition(i).toString();
+            finalUrl=url+adapterView.getItemAtPosition(i).toString();
         }
 
-        new TextLoader(url,listener).execute();
+        new TextLoader(finalUrl,listener).execute();
     }
 
     @Override
     public void onNothingSelected(AdapterView<?> adapterView) {
 
+        fetchedText.setText("");
     }
 
     @Override

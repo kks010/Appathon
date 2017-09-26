@@ -29,7 +29,7 @@ public class MainActivity extends AppCompatActivity {
         mTabLayout.setTabGravity(mTabLayout.GRAVITY_FILL);
 
         //connecting adapter
-        MyGossipPageAdapter adapter = new MyGossipPageAdapter(getSupportFragmentManager());
+        PageAdapter adapter = new PageAdapter(getSupportFragmentManager());
         final ViewPager viewPager = (ViewPager) findViewById(R.id.view_pager);
         viewPager.setAdapter(adapter);
 
@@ -62,9 +62,9 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    private class MyGossipPageAdapter extends FragmentPagerAdapter {
+    private class PageAdapter extends FragmentPagerAdapter {
 
-        public MyGossipPageAdapter(FragmentManager fm)
+        public PageAdapter(FragmentManager fm)
         {
             super(fm);
         }
