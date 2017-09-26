@@ -43,6 +43,7 @@
             android:id="@+id/input_edit_text"
             android:layout_marginLeft="10dp"
             android:layout_weight="1"
+            android:inputType="number"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
 
@@ -58,12 +59,13 @@
         android:layout_marginTop="10dp"
         android:layout_width="match_parent"
         android:layout_weight="1"
-        android:background="@color/offWhite"
+        android:background="@drawable/myrect"
         android:layout_height="match_parent">
         <TextView
             android:padding="5dp"
             android:id="@+id/fetched_text_quest"
             android:layout_centerInParent="true"
+            android:textSize="20sp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textColor="@color/black"/>

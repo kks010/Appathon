@@ -58,31 +58,20 @@ public class QuestFactsFragment extends Fragment implements TextLoader.TextLoade
                 input=inputNumber.getText().toString();
                 finalUrl=url+input+"/"+spinnerText;
 
-                boolean ans= isNumeric(input);
-
                 if(input.equals("")&& spinnerText.equals("")){
                     Toast.makeText(getContext(),"Enter the number and select category",Toast.LENGTH_SHORT).show();
                 }else if(input.equals("")){
                     Toast.makeText(getContext(),"Enter the number",Toast.LENGTH_SHORT).show();
                 }else if(spinnerText.equals("<Select>")||spinnerText.equals("")) {
                     Toast.makeText(getContext(),"Select Category",Toast.LENGTH_SHORT).show();
-                }else if(ans){
-                    new TextLoader(finalUrl,listener).execute();
                 }else{
-                    Toast.makeText(getContext(),"Input the number correctly",Toast.LENGTH_SHORT).show();
+                    new TextLoader(finalUrl,listener).execute();
                 }
+
+                inputNumber.setText("");
             }
         });
         return inflatedView;
-    }
-
-    public static boolean isNumeric(String str)
-    {
-        for (char c : str.toCharArray())
-        {
-            if (!Character.isDigit(c)) return false;
-        }
-        return true;
     }
 
     @Override

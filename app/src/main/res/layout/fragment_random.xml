@@ -27,13 +27,14 @@
     </LinearLayout>
     <RelativeLayout
         android:layout_margin="10dp"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="15dp"
         android:layout_width="match_parent"
         android:layout_weight="1"
-        android:background="@color/offWhite"
+        android:background="@drawable/myrect"
         android:layout_height="match_parent">
         <TextView
             android:padding="5dp"
+            android:textSize="20sp"
             android:id="@+id/fetched_text_random"
             android:layout_centerInParent="true"
             android:layout_width="wrap_content"
