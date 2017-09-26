@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Select Category : "
+        android:textColor="@color/black"
+        android:textSize="15sp"/>
+
+    <Spinner
+        android:id="@+id/spinner"
+        android:layout_weight="1"
+        android:textAlignment="center"
+        android:layout_marginLeft="10dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"></Spinner>
+
+    </LinearLayout>
+    <RelativeLayout
+        android:layout_margin="10dp"
+        android:layout_marginTop="10dp"
+        android:layout_width="match_parent"
+        android:layout_weight="1"
+        android:background="@color/offWhite"
+        android:layout_height="match_parent">
+        <TextView
+            android:padding="5dp"
+            android:id="@+id/fetched_text"
+            android:layout_centerInParent="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/black"/>
+    </RelativeLayout>
+
+</LinearLayout>
