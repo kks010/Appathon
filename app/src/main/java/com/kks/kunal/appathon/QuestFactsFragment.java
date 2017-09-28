@@ -47,6 +47,10 @@ public class QuestFactsFragment extends Fragment implements TextLoader.TextLoade
         this.inflatedView = inflater.inflate(R.layout.fragment_quest, container, false);
         setRetainInstance(true);
 
+        if(savedInstanceState!=null){
+            String fetched=savedInstanceState.getString("FetchedFactQuest");
+            setTitle(fetched);
+        }
         listener=this;
 
         this.arraySpinner = new String[] {"<Select>","trivia","math", "date", "year"};
