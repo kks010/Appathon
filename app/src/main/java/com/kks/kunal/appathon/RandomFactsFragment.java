@@ -39,7 +39,6 @@ public class RandomFactsFragment extends Fragment implements TextLoader.TextLoad
         if(savedInstanceState!=null){
             String fetched=savedInstanceState.getString("FetchedFactRandom");
             setTitle(fetched);
-            Log.d("buff",fetched);
         }
         listener = this;
 
@@ -65,7 +64,6 @@ public class RandomFactsFragment extends Fragment implements TextLoader.TextLoad
                 s.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
                     @Override
                     public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                        Log.d("buff","called setOnItemSelectedListener");
                         if(i==0){
                             finalUrl="";
                         }else if(i==1){
@@ -73,8 +71,10 @@ public class RandomFactsFragment extends Fragment implements TextLoader.TextLoad
                             adapterView.setSelection(0);
                         }else if(i==2){
                             finalUrl=url+adapterView.getItemAtPosition(i).toString();
+                            adapterView.setSelection(0);
                         }else if(i==3){
                             finalUrl=url+adapterView.getItemAtPosition(i).toString();
+                            adapterView.setSelection(0);
                         }else if(i==4){
                             finalUrl=url+adapterView.getItemAtPosition(i).toString();
                             adapterView.setSelection(0);

@@ -24,9 +24,10 @@ import android.widget.ViewSwitcher;
  * Created by Kunal on 26-09-2017.
  */
 
-public class QuestFactsFragment extends Fragment implements TextLoader.TextLoaderListener, AdapterView.OnItemSelectedListener {
+public class QuestFactsFragment extends Fragment implements TextLoader.TextLoaderListener{
 
     View inflatedView;
+    Spinner s;
     public String[] arraySpinner;
     TextSwitcher fetchedText;
     EditText inputNumber;
@@ -54,7 +55,7 @@ public class QuestFactsFragment extends Fragment implements TextLoader.TextLoade
         listener=this;
 
         this.arraySpinner = new String[] {"<Select>","trivia","math", "date", "year"};
-        Spinner s = inflatedView.findViewById(R.id.spinner_quest);
+        s = inflatedView.findViewById(R.id.spinner_quest);
         inputNumber=inflatedView.findViewById(R.id.input_edit_text);
         mm=inflatedView.findViewById(R.id.mm_edit_text);
         dd=inflatedView.findViewById(R.id.dd_edit_text);
@@ -76,7 +77,59 @@ public class QuestFactsFragment extends Fragment implements TextLoader.TextLoade
         ArrayAdapter<String> adapter = new ArrayAdapter<>(getContext(),android.R.layout.simple_spinner_item, arraySpinner);
         s.setAdapter(adapter);
 
-        s.setOnItemSelectedListener(this);
+        s.post(new Runnable() {
+                   public void run() {
+                       s.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                           @Override
+                           public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+
+                               if(i==0){
+
+                                   spinnerText="";
+
+                               }else if(i==1){
+                                   spinnerText=adapterView.getItemAtPosition(i).toString();
+                                   inputNumber.setHint("Hint: 180");
+
+                                   dd.setVisibility(View.INVISIBLE);
+                                   mm.setVisibility(View.INVISIBLE);
+                                   slash.setVisibility(View.INVISIBLE);
+                                   inputNumber.setVisibility(View.VISIBLE);
+                               }else if(i==2){
+                                   spinnerText=adapterView.getItemAtPosition(i).toString();
+                                   inputNumber.setHint("Hint: 3");
+
+                                   dd.setVisibility(View.INVISIBLE);
+                                   mm.setVisibility(View.INVISIBLE);
+                                   slash.setVisibility(View.INVISIBLE);
+                                   inputNumber.setVisibility(View.VISIBLE);
+                               }else if(i==3){
+                                   spinnerText=adapterView.getItemAtPosition(i).toString();
+                                   dd.setHint("DD");
+                                   mm.setHint("MM");
+
+                                   dd.setVisibility(View.VISIBLE);
+                                   mm.setVisibility(View.VISIBLE);
+                                   slash.setVisibility(View.VISIBLE);
+                                   inputNumber.setVisibility(View.INVISIBLE);
+                               }else if(i==4){
+                                   spinnerText=adapterView.getItemAtPosition(i).toString();
+                                   inputNumber.setHint("Hint: 2017");
+
+                                   dd.setVisibility(View.INVISIBLE);
+                                   mm.setVisibility(View.INVISIBLE);
+                                   slash.setVisibility(View.INVISIBLE);
+                                   inputNumber.setVisibility(View.VISIBLE);
+                               }
+                           }
+
+                           @Override
+                           public void onNothingSelected(AdapterView<?> adapterView) {
+                               setTitle("");
+                           }
+                       });
+                   }
+               });
         submitBtn.setOnClickListener(new View.OnClickListener() {
             @RequiresApi(api = Build.VERSION_CODES.N)
             @Override
@@ -124,52 +177,6 @@ public class QuestFactsFragment extends Fragment implements TextLoader.TextLoade
         }
         return true;
     }
-
-    @Override
-    public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-
-        if(i==1){
-            spinnerText=adapterView.getItemAtPosition(i).toString();
-            inputNumber.setHint("Hint: 180");
-
-            dd.setVisibility(View.INVISIBLE);
-            mm.setVisibility(View.INVISIBLE);
-            slash.setVisibility(View.INVISIBLE);
-            inputNumber.setVisibility(View.VISIBLE);
-        }else if(i==2){
-            spinnerText=adapterView.getItemAtPosition(i).toString();
-            inputNumber.setHint("Hint: 3");
-
-            dd.setVisibility(View.INVISIBLE);
-            mm.setVisibility(View.INVISIBLE);
-            slash.setVisibility(View.INVISIBLE);
-            inputNumber.setVisibility(View.VISIBLE);
-        }else if(i==3){
-            spinnerText=adapterView.getItemAtPosition(i).toString();
-            dd.setHint("DD");
-            mm.setHint("MM");
-
-            dd.setVisibility(View.VISIBLE);
-            mm.setVisibility(View.VISIBLE);
-            slash.setVisibility(View.VISIBLE);
-            inputNumber.setVisibility(View.INVISIBLE);
-        }else if(i==4){
-            spinnerText=adapterView.getItemAtPosition(i).toString();
-            inputNumber.setHint("Hint: 2017");
-
-            dd.setVisibility(View.INVISIBLE);
-            mm.setVisibility(View.INVISIBLE);
-            slash.setVisibility(View.INVISIBLE);
-            inputNumber.setVisibility(View.VISIBLE);
-        }
-
-    }
-
-    @Override
-    public void onNothingSelected(AdapterView<?> adapterView) {
-        setTitle("");
-    }
-
 
     @Override
     public void getText(String result) {
