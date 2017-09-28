@@ -10,8 +10,10 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.Spinner;
+import android.widget.TextSwitcher;
 import android.widget.TextView;
 import android.widget.Toast;
+import android.widget.ViewSwitcher;
 
 /**
  * Created by Kunal on 26-09-2017.
@@ -21,21 +23,37 @@ public class RandomFactsFragment extends Fragment implements AdapterView.OnItemS
 
     View inflatedView;
     public String[] arraySpinner;
-    TextView fetchedText;
+    TextSwitcher fetchedText;
     String url="http://numbersapi.com/random/";
     String finalUrl="";
+    String result="";
 
     TextLoader.TextLoaderListener listener;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,Bundle savedInstanceState) {
         this.inflatedView = inflater.inflate(R.layout.fragment_random, container, false);
+        setRetainInstance(true);
 
+        if(savedInstanceState!=null){
+        String fetched=savedInstanceState.getString("FetchedFactRandom");
+            setTitle(fetched);
+        }
         listener = this;
 
         this.arraySpinner = new String[] {"<Select>","trivia","math", "date", "year"};
         Spinner s = inflatedView.findViewById(R.id.spinner_random);
         fetchedText=inflatedView.findViewById(R.id.fetched_text_random);
+
+        fetchedText.setFactory(new ViewSwitcher.ViewFactory() {
+            @Override
+            public View makeView () {
+                return new TextView(getContext());
+            }
+        });
+
+        fetchedText.setInAnimation(getContext(), R.anim.in_animation);
+        fetchedText.setOutAnimation(getContext(), R.anim.out_animation);
 
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(getActivity().getApplicationContext(), android.R.layout.simple_spinner_item, arraySpinner);
         s.setAdapter(adapter);
@@ -64,11 +82,24 @@ public class RandomFactsFragment extends Fragment implements AdapterView.OnItemS
     @Override
     public void onNothingSelected(AdapterView<?> adapterView) {
 
-        fetchedText.setText("");
+        setTitle("");
     }
 
     @Override
     public void getText(String result) {
-        fetchedText.setText(result);
+        this.result=result;
+        setTitle(result);
+    }
+
+    public void setTitle (String actionBarTitle) {
+
+        fetchedText.setText(actionBarTitle);
+
+    }
+
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putString("FetchedFactRandom",result);
     }
 }

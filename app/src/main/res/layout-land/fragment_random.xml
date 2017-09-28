@@ -9,20 +9,20 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Select Category : "
-        android:textColor="@color/black"
-        android:textSize="15sp"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Select Category : "
+            android:textColor="@color/black"
+            android:textSize="15sp"/>
 
-    <Spinner
-        android:id="@+id/spinner_random"
-        android:layout_weight="1"
-        android:textAlignment="center"
-        android:layout_marginLeft="10dp"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"/>
+        <Spinner
+            android:id="@+id/spinner_random"
+            android:layout_weight="1"
+            android:textAlignment="center"
+            android:layout_marginLeft="10dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
 
     </LinearLayout>
     <RelativeLayout
@@ -34,7 +34,7 @@
         android:background="@drawable/border"
         android:layout_height="match_parent">
         <TextSwitcher
-            android:padding="5dp"
+            android:padding="10dp"
             android:textSize="40sp"
             android:id="@+id/fetched_text_random"
             android:layout_centerInParent="true"
