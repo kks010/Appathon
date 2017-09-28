@@ -19,9 +19,10 @@ import android.widget.ViewSwitcher;
  * Created by Kunal on 26-09-2017.
  */
 
-public class RandomFactsFragment extends Fragment implements AdapterView.OnItemSelectedListener,TextLoader.TextLoaderListener {
+public class RandomFactsFragment extends Fragment implements TextLoader.TextLoaderListener {
 
     View inflatedView;
+    Spinner s;
     public String[] arraySpinner;
     TextSwitcher fetchedText;
     String url="http://numbersapi.com/random/";
@@ -36,13 +37,14 @@ public class RandomFactsFragment extends Fragment implements AdapterView.OnItemS
         setRetainInstance(true);
 
         if(savedInstanceState!=null){
-        String fetched=savedInstanceState.getString("FetchedFactRandom");
+            String fetched=savedInstanceState.getString("FetchedFactRandom");
             setTitle(fetched);
+            Log.d("buff",fetched);
         }
         listener = this;
 
         this.arraySpinner = new String[] {"<Select>","trivia","math", "date", "year"};
-        Spinner s = inflatedView.findViewById(R.id.spinner_random);
+        s = inflatedView.findViewById(R.id.spinner_random);
         fetchedText=inflatedView.findViewById(R.id.fetched_text_random);
 
         fetchedText.setFactory(new ViewSwitcher.ViewFactory() {
@@ -58,31 +60,38 @@ public class RandomFactsFragment extends Fragment implements AdapterView.OnItemS
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(getActivity().getApplicationContext(), android.R.layout.simple_spinner_item, arraySpinner);
         s.setAdapter(adapter);
 
-        s.setOnItemSelectedListener(this);
+        s.post(new Runnable() {
+            public void run() {
+                s.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                    @Override
+                    public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                        Log.d("buff","called setOnItemSelectedListener");
+                        if(i==0){
+                            finalUrl="";
+                        }else if(i==1){
+                            finalUrl=url+adapterView.getItemAtPosition(i).toString();
+                            adapterView.setSelection(0);
+                        }else if(i==2){
+                            finalUrl=url+adapterView.getItemAtPosition(i).toString();
+                        }else if(i==3){
+                            finalUrl=url+adapterView.getItemAtPosition(i).toString();
+                        }else if(i==4){
+                            finalUrl=url+adapterView.getItemAtPosition(i).toString();
+                            adapterView.setSelection(0);
+                        }
+
+                        new TextLoader(finalUrl,listener).execute();
+                    }
+
+                    @Override
+                    public void onNothingSelected(AdapterView<?> adapterView) {
+                        setTitle("");
+                    }
+                });
+            }
+        });
 
         return inflatedView;
-    }
-
-    @Override
-    public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-
-        if(i==1){
-            finalUrl=url+adapterView.getItemAtPosition(i).toString();
-        }else if(i==2){
-            finalUrl=url+adapterView.getItemAtPosition(i).toString();
-        }else if(i==3){
-            finalUrl=url+adapterView.getItemAtPosition(i).toString();
-        }else if(i==4){
-            finalUrl=url+adapterView.getItemAtPosition(i).toString();
-        }
-
-        new TextLoader(finalUrl,listener).execute();
-    }
-
-    @Override
-    public void onNothingSelected(AdapterView<?> adapterView) {
-
-        setTitle("");
     }
 
     @Override
