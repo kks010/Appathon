@@ -1,5 +1,6 @@
 package com.kks.kunal.appathon;
 
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.util.Log;
@@ -36,12 +37,6 @@ public class RandomFactsFragment extends Fragment implements TextLoader.TextLoad
         this.inflatedView = inflater.inflate(R.layout.fragment_random, container, false);
         setRetainInstance(true);
 
-        if(savedInstanceState!=null){
-            String fetched=savedInstanceState.getString("FetchedFactRandom");
-            setTitle(fetched);
-        }
-        listener = this;
-
         this.arraySpinner = new String[] {"<Select>","trivia","math", "date", "year"};
         s = inflatedView.findViewById(R.id.spinner_random);
         fetchedText=inflatedView.findViewById(R.id.fetched_text_random);
@@ -49,12 +44,23 @@ public class RandomFactsFragment extends Fragment implements TextLoader.TextLoad
         fetchedText.setFactory(new ViewSwitcher.ViewFactory() {
             @Override
             public View makeView () {
-                return new TextView(getContext());
+                TextView textView = new TextView(getContext());
+                textView.setLayoutParams(new TextSwitcher.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT));
+                textView.setTextSize(20);
+                textView.setTextColor(Color.WHITE);
+
+                return textView;
             }
         });
 
         fetchedText.setInAnimation(getContext(), R.anim.in_animation);
         fetchedText.setOutAnimation(getContext(), R.anim.out_animation);
+
+        if(savedInstanceState!=null){
+            String fetched=savedInstanceState.getString("FetchedFactRandom");
+            setTitle(fetched);
+        }
+        listener = this;
 
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(getActivity().getApplicationContext(), android.R.layout.simple_spinner_item, arraySpinner);
         s.setAdapter(adapter);

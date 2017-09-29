@@ -1,6 +1,7 @@
 package com.kks.kunal.appathon;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.RequiresApi;
@@ -48,12 +49,6 @@ public class QuestFactsFragment extends Fragment implements TextLoader.TextLoade
         this.inflatedView = inflater.inflate(R.layout.fragment_quest, container, false);
         setRetainInstance(true);
 
-        if(savedInstanceState!=null){
-            String fetched=savedInstanceState.getString("FetchedFactQuest");
-            setTitle(fetched);
-        }
-        listener=this;
-
         this.arraySpinner = new String[] {"<Select>","trivia","math", "date", "year"};
         s = inflatedView.findViewById(R.id.spinner_quest);
         inputNumber=inflatedView.findViewById(R.id.input_edit_text);
@@ -67,12 +62,24 @@ public class QuestFactsFragment extends Fragment implements TextLoader.TextLoade
         fetchedText.setFactory(new ViewSwitcher.ViewFactory() {
             @Override
             public View makeView () {
-                return new TextView(getContext());
+                TextView textView = new TextView(getContext());
+                textView.setLayoutParams(new TextSwitcher.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT));
+                textView.setTextSize(20);
+                textView.setTextColor(Color.WHITE);
+
+                return textView;
             }
         });
 
         fetchedText.setInAnimation(getContext(), R.anim.in_animation);
         fetchedText.setOutAnimation(getContext(), R.anim.out_animation);
+
+
+        if(savedInstanceState!=null){
+            String fetched=savedInstanceState.getString("FetchedFactQuest");
+            setTitle(fetched);
+        }
+        listener=this;
 
         ArrayAdapter<String> adapter = new ArrayAdapter<>(getContext(),android.R.layout.simple_spinner_item, arraySpinner);
         s.setAdapter(adapter);
